@@ -45,13 +45,22 @@ class LBN_Save_Post {
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
 	}
 
-
+	/**
+	 * Save post callback
+	 *
+	 * @param int     $post_id The post ID.
+	 * @param object  $post    The post object.
+	 * @param boolean $update  Is this an update.
+	 * @return void
+	 */
 	public function save_post( $post_id, $post, $update ) {
-		// var_dump( $post );
-		// var_dump( $_POST );die;
-	}
+		$deploy = 'false' === $_POST['deploy'] ? false : true;
 
-	public function call_netlifly() {
+		if ( $deploy ) {
+			$env = 'Deploy to Stage' === sanitize_text_field( $_POST['deploy'] ) ? 'stage' : 'production';
+			$netlifly = new LBN_Netlifly( $env );
+			$netlifly->call_build_hook();
+		}
 
 	}
 

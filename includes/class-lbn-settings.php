@@ -38,7 +38,7 @@ class LBN_Settings {
 			'Settings Admin',
 			'My Settings',
 			'manage_options',
-			'lbn-netlifly',
+			'lb-netlifly',
 			array( $this, 'create_admin_page' )
 		);
 	}
@@ -48,16 +48,16 @@ class LBN_Settings {
 	 */
 	public function create_admin_page() {
 		// Set class property.
-		$this->options = get_option( 'lbn_netlifly' );
+		$this->options = get_option( 'lb_netlifly' );
 
 		?>
 		<div class="wrap">
-			<h1>My Settings</h1>
+			<h1>LittleBot Netlifly Settings</h1>
 			<form method="post" action="options.php">
 			<?php
 				// This prints out all hidden setting fields
-				settings_fields( 'my_option_group' );
-				do_settings_sections( 'lbn-netlifly' );
+				settings_fields( 'build_group' );
+				do_settings_sections( 'lb-netlifly' );
 				submit_button();
 			?>
 			</form>
@@ -70,31 +70,31 @@ class LBN_Settings {
 	 */
 	public function page_init() {
 		register_setting(
-			'my_option_group', // Option group
-			'lbn_netlifly', // Option name
+			'build_group', // Option group
+			'lb_netlifly', // Option name
 			array( $this, 'sanitize' ) // Sanitize
 		);
 
 		add_settings_section(
 			'setting_section_id', // ID
-			'My Custom Settings', // Title
+			'Build Hooks', // Title
 			false, // Callback
-			'lbn-netlifly' // Page
+			'lb-netlifly' // Page
 		);
 
 		add_settings_field(
-			'prod_webook', // ID
-			'Production Webhook', // Title
+			'production_buildhook', // ID
+			'Production', // Title
 			array( $this, 'prod_callback' ), // Callback
-			'lbn-netlifly', // Page
+			'lb-netlifly', // Page
 			'setting_section_id' // Section
 		);
 
 		add_settings_field(
-			'stage_webook',
-			'Staging Webhook',
+			'stage_buildhook',
+			'Stage',
 			array( $this, 'stage_callback' ),
-			'lbn-netlifly',
+			'lb-netlifly',
 			'setting_section_id'
 		);
 	}
@@ -106,11 +106,11 @@ class LBN_Settings {
 	 */
 	public function sanitize( $input ) {
 		$new_input = array();
-		if( isset( $input['prod_webhook'] ) )
-			$new_input['prod_webhook'] = sanitize_text_field( $input['prod_webhook'] );
+		if( isset( $input['production_buildhook'] ) )
+			$new_input['production_buildhook'] = sanitize_text_field( $input['production_buildhook'] );
 
-		if( isset( $input['stage_webhook'] ) )
-			$new_input['stage_webhook'] = sanitize_text_field( $input['stage_webhook'] );
+		if( isset( $input['stage_buildhook'] ) )
+			$new_input['stage_buildhook'] = sanitize_text_field( $input['stage_buildhook'] );
 
 		return $new_input;
 	}
@@ -120,8 +120,8 @@ class LBN_Settings {
 	 */
 	public function prod_callback() {
 		printf(
-			'<input type="text" id="prod_webhook" name="lbn_netlifly[prod_webhook]" value="%s" style="min-width:450px;"/>',
-			isset( $this->options['prod_webhook'] ) ? esc_attr( $this->options['prod_webhook']) : ''
+			'<input type="text" id="prod_buildhook" name="lb_netlifly[production_buildhook]" value="%s" style="min-width:450px;"/>',
+			isset( $this->options['production_buildhook'] ) ? esc_attr( $this->options['production_buildhook']) : ''
 		);
 	}
 
@@ -130,8 +130,8 @@ class LBN_Settings {
 	 */
 	public function stage_callback() {
 		printf(
-			'<input type="text" id="stage_webhook" name="lbn_netlifly[stage_webhook]" value="%s" style="min-width:450px;" />',
-			isset( $this->options['stage_webhook'] ) ? esc_attr( $this->options['stage_webhook']) : ''
+			'<input type="text" id="stage_buildhook" name="lb_netlifly[stage_buildhook]" value="%s" style="min-width:450px;" />',
+			isset( $this->options['stage_buildhook'] ) ? esc_attr( $this->options['stage_buildhook']) : ''
 		);
 	}
 }
