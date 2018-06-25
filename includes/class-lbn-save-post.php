@@ -4,9 +4,18 @@
  *
  * A class for all plugin metaboxs.
  *
- * @version   0.9
+ * @version   0.9.0
  * @category  Class
+ * @package   LittleBotNetlifly
  * @author    Justin W Hall
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Hooks saving and updating posts.
  */
 class LBN_Save_Post {
 
@@ -14,7 +23,6 @@ class LBN_Save_Post {
 	 * Parent plugin class.
 	 *
 	 * @var object
-	 * @since 0.1.0
 	 */
 	protected $plugin = null;
 
@@ -40,8 +48,11 @@ class LBN_Save_Post {
 
 	public function save_post( $post_id, $post, $update ) {
 		// var_dump( $post );
-		var_dump( $_POST );die;
+		// var_dump( $_POST );die;
 	}
 
+	public function call_netlifly() {
+
+	}
 
 }

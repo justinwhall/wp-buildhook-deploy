@@ -6,7 +6,16 @@
  *
  * @version   0.9
  * @category  Class
+ * @package   LittleBotNetlifly/Metaboxes
  * @author    Justin W Hall
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Post Metabox.
  */
 class LBN_Metaboxes {
 

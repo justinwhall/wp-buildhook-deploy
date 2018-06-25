@@ -2,7 +2,7 @@
 /**
  * Plugin Name: littlebot-netlify
  * Plugin URI:  https://www.justinwhall.com
- * Description: Connect your WordPress website to Netlify.com with webhooks
+ * Description: Connect your WordPress website to Netlify.com
  * Version:     0.9.0
  * Author:      jwind
  * Author URI:  https://www.justinwhall.com
@@ -119,7 +119,7 @@ final class Littlebot_Netlify {
 			self::$single_instance = new self();
 		}
 
-		self::$single_instance->includes();
+		// self::$single_instance->includes();
 
 		return self::$single_instance;
 	}
@@ -141,6 +141,7 @@ final class Littlebot_Netlify {
 	 * @since  0.9.0
 	 */
 	public function includes() {
+		$this->plugin_class = new LBN_Settings( $this );
 		$this->plugin_class = new LBN_Metaboxes( $this );
 		$this->plugin_class = new LBN_Save_Post( $this );
 
