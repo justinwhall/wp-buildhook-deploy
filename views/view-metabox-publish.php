@@ -1,4 +1,4 @@
-<div id="lb-major-publishing-actions">
+<div id="submitpost" class="post-box">
 	<div id="lb-delete-action">
 		<?php
 		$post_type = $post->post_type;
@@ -53,14 +53,10 @@
 			<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ) ?>" />
 			<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update' ) ?>" />
 
+
 		<?php endif; ?>
 	</div>
 
 	<div class="clear"></div>
 </div>
 
-<script>
-jQuery(document).ready(function(){
-	window.onbeforeunload = null;
-});
-</script>

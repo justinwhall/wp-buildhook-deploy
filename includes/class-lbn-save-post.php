@@ -81,10 +81,6 @@ class LBN_Save_Post {
 			return;
 		}
 
-		// var_dump( $post );
-		// var_dump( $_GET );
-		// die;
-
 		// Are we deploying to stage/production.
 		$deploy_stage = isset( $_POST['lbn_deploy_stage'] ) ? true : false;
 		$deploy_production = isset( $_POST['lbn_deploy_production'] ) ? true : false;
@@ -99,14 +95,14 @@ class LBN_Save_Post {
 
 		// Maybe deploy to stage?
 		if ( $deploy_stage || $deploy_stage !== $prev_deploy_stage ) {
-			$netlifly_stage = new LBN_Netlifly( 'stage' );
-			$netlifly_stage->call_build_hook();
+			// $netlifly_stage = new LBN_Netlifly( 'stage' );
+			// $netlifly_stage->call_build_hook();
 		}
 
 		// Maybe deploy to production?
 		if ( $deploy_production || $deploy_production !== $prev_deploy_production ) {
-			$netlifly_stage = new LBN_Netlifly( 'production' );
-			$netlifly_stage->call_build_hook();
+			// $netlifly_stage = new LBN_Netlifly( 'production' );
+			// $netlifly_stage->call_build_hook();
 		}
 
 	}
