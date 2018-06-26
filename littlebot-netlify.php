@@ -142,7 +142,7 @@ final class Littlebot_Netlify {
 	 */
 	public function includes() {
 		$this->plugin_class = new LBN_Settings( $this );
-		// $this->plugin_class = new LBN_Netlifly( $this );
+		$this->plugin_class = new LBN_Meta_Fields( $this );
 		$this->plugin_class = new LBN_Metaboxes( $this );
 		$this->plugin_class = new LBN_Save_Post( $this );
 

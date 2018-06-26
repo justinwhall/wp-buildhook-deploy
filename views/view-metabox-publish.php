@@ -4,6 +4,9 @@
 		$post_type = $post->post_type;
 		$post_type_object = get_post_type_object( $post_type );
 		$can_publish = current_user_can( $post_type_object->cap->publish_posts );
+		// Prev deploy states.
+		$prev_deploy_stage = (bool) get_post_meta( $post->ID, 'lbn_deploy_stage', true );
+		$prev_deploy_production = (bool) get_post_meta( $post->ID, 'lbn_deploy_production', true );
 
 		if ( current_user_can( 'delete_post', $post->ID ) ) {
 			if ( ! EMPTY_TRASH_DAYS ) {
@@ -20,17 +23,16 @@
 
 	<div id="lb-publishing-action">
 		<span class="spinner"></span>
-		<input name="deploy" type="hidden"  value="false" />
 
 		<?php if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 === $post->ID ) : ?>
 
 			<?php if ( $can_publish ) : ?>
 
+				<div><label><input class="js-lbn-deploy-stage" type="checkbox" name="lbn_deploy_stage" <?php if ( $prev_deploy_stage ) : ?>checked<?php endif;?>>Stage</label></div>
+				<div><label><input class="js-lbn-deploy-production" type="checkbox" name="lbn_deploy_production" <?php if ( $prev_deploy_production ) : ?>checked<?php endif;?>>Production</label></div>
+
 				<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ) ?>" />
 				<?php submit_button( __( 'Publish' ), 'primary large', 'publish', false ); ?>
-
-				<div><?php submit_button( __( 'Deploy to Stage' ), 'primary large', 'deploy', false ); ?></div>
-				<div><?php submit_button( __( 'Deploy to Production' ), 'primary large', 'deploy', false ); ?></div>
 
 			<?php else : ?>
 
@@ -41,17 +43,15 @@
 
 		<?php else : ?>
 
-			<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ) ?>" />
-			<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update' ) ?>" />
-
-
 			<?php if ( $can_publish ) : ?>
 
-				<div><?php submit_button( __( 'Deploy to Stage' ), 'primary large', 'deploy', false ); ?></div>
-				<div><?php submit_button( __( 'Deploy to Production' ), 'primary large', 'deploy', false ); ?></div>
+				<div><label><input class="js-lbn-deploy-stage" type="checkbox" name="lbn_deploy_stage" <?php if ( $prev_deploy_stage ) : ?>checked<?php endif;?>>Stage</label></div>
+				<div><label><input class="js-lbn-deploy-production" type="checkbox" name="lbn_deploy_production" <?php if ( $prev_deploy_production ) : ?>checked<?php endif;?>>Production</label></div>
 
 			<?php endif; ?>
 
+			<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ) ?>" />
+			<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update' ) ?>" />
 
 		<?php endif; ?>
 	</div>

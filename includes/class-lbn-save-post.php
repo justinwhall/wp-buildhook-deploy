@@ -43,6 +43,24 @@ class LBN_Save_Post {
 	 */
 	public function hooks() {
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
+		add_action( 'wp_insert_post_data', array( $this, 'insert_post' ), 10, 3 );
+	}
+
+	public function insert_post( $data, $post ) {
+		if (
+			isset( $post['post_status'] ) && 'auto-draft' === $post['post_status'] ||
+			defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ||
+			defined( 'DOING_AJAX' ) && DOING_AJAX
+			) {
+			return $data;
+		}
+
+		// If it's a deploy, make sure it's set to publish.
+		if ( isset( $post['deploy'] ) ) {
+			$data['post_status'] = 'publish';
+		}
+
+		return $data;
 	}
 
 	/**
@@ -54,12 +72,41 @@ class LBN_Save_Post {
 	 * @return void
 	 */
 	public function save_post( $post_id, $post, $update ) {
-		$deploy = 'false' === $_POST['deploy'] ? false : true;
+		// Bail if it's a auto-draft, we're doing auto save or ajax.
+		if (
+			isset( $post->post_status ) && 'auto-draft' === $post->post_status ||
+			defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ||
+			defined( 'DOING_AJAX' ) && DOING_AJAX
+			) {
+			return;
+		}
 
-		if ( $deploy ) {
-			$env = 'Deploy to Stage' === sanitize_text_field( $_POST['deploy'] ) ? 'stage' : 'production';
-			$netlifly = new LBN_Netlifly( $env );
-			$netlifly->call_build_hook();
+		// var_dump( $post );
+		// var_dump( $_GET );
+		// die;
+
+		// Are we deploying to stage/production.
+		$deploy_stage = isset( $_POST['lbn_deploy_stage'] ) ? true : false;
+		$deploy_production = isset( $_POST['lbn_deploy_production'] ) ? true : false;
+
+		// Prev deploy states.
+		$prev_deploy_stage = (bool) get_post_meta( $post_id, 'lbn_deploy_stage', true );
+		$prev_deploy_production = (bool) get_post_meta( $post_id, 'lbn_deploy_production', true );
+
+		// Update deploy status.
+		update_post_meta( $post_id, 'lbn_deploy_stage', $deploy_stage );
+		update_post_meta( $post_id, 'lbn_deploy_production', $deploy_production );
+
+		// Maybe deploy to stage?
+		if ( $deploy_stage || $deploy_stage !== $prev_deploy_stage ) {
+			$netlifly_stage = new LBN_Netlifly( 'stage' );
+			$netlifly_stage->call_build_hook();
+		}
+
+		// Maybe deploy to production?
+		if ( $deploy_production || $deploy_production !== $prev_deploy_production ) {
+			$netlifly_stage = new LBN_Netlifly( 'production' );
+			$netlifly_stage->call_build_hook();
 		}
 
 	}
