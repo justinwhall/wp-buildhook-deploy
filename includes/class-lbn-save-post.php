@@ -95,14 +95,14 @@ class LBN_Save_Post {
 
 		// Maybe deploy to stage?
 		if ( $deploy_stage || $deploy_stage !== $prev_deploy_stage ) {
-			// $netlifly_stage = new LBN_Netlifly( 'stage' );
-			// $netlifly_stage->call_build_hook();
+			$netlifly_stage = new LBN_Netlifly( 'stage' );
+			$netlifly_stage->call_build_hook();
 		}
 
 		// Maybe deploy to production?
 		if ( $deploy_production || $deploy_production !== $prev_deploy_production ) {
-			// $netlifly_stage = new LBN_Netlifly( 'production' );
-			// $netlifly_stage->call_build_hook();
+			$netlifly_stage = new LBN_Netlifly( 'production' );
+			$netlifly_stage->call_build_hook();
 		}
 
 	}

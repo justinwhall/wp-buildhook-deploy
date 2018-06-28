@@ -36,7 +36,7 @@ class LBN_Settings {
 		// This page will be under "Settings".
 		add_options_page(
 			'Settings Admin',
-			'My Settings',
+			'LittleBot Netlifly',
 			'manage_options',
 			'lb-netlifly',
 			array( $this, 'create_admin_page' )
