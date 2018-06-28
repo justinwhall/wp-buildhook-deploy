@@ -1,6 +1,6 @@
 # LittleBot Netlifly
 
-Connect your WordPress website to [Netlifly](https://www.netlify.com/) by trigger and or stage and production build hook on post save and or update.
+Connect your WordPress website to [Netlifly](https://www.netlify.com/) by triggering stage and or production build hooks on post save and or update.
 
 ## installation
 
