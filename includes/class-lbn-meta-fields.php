@@ -47,15 +47,15 @@ class LBN_Meta_Fields {
 
 		$args = array(
 			'type'         => 'boolean',
-			'description'  => 'Has this post been deployed to stage',
+			'description'  => 'Has this post been published to stage',
 			'single'       => true,
 			'show_in_rest' => true,
 		);
 
-		register_meta( 'post', 'lbn_deploy_stage', $args );
+		register_meta( 'post', 'lbn_published_stage', $args );
 
-		$args['description'] = 'Has this post been deployed to production';
-		register_meta( 'post', 'lbn_deploy_production', $args );
+		$args['description'] = 'Has this post been published to production';
+		register_meta( 'post', 'lbn_published_production', $args );
 	}
 
 }

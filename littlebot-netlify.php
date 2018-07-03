@@ -119,8 +119,6 @@ final class Littlebot_Netlify {
 			self::$single_instance = new self();
 		}
 
-		// self::$single_instance->includes();
-
 		return self::$single_instance;
 	}
 
@@ -133,6 +131,7 @@ final class Littlebot_Netlify {
 		$this->basename = plugin_basename( __FILE__ );
 		$this->url      = plugin_dir_url( __FILE__ );
 		$this->path     = plugin_dir_path( __FILE__ );
+		$this->ver      = self::VERSION;
 	}
 
 	/**
@@ -141,10 +140,11 @@ final class Littlebot_Netlify {
 	 * @since  0.9.0
 	 */
 	public function includes() {
-		$this->plugin_class = new LBN_Settings( $this );
-		$this->plugin_class = new LBN_Meta_Fields( $this );
-		$this->plugin_class = new LBN_Metaboxes( $this );
-		$this->plugin_class = new LBN_Save_Post( $this );
+		new LBN_Assets( $this );
+		new LBN_Settings( $this );
+		new LBN_Meta_Fields( $this );
+		new LBN_Metaboxes( $this );
+		new LBN_Save_Post( $this );
 
 	} // END OF PLUGIN CLASSES FUNCTION
 

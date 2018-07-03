@@ -89,18 +89,30 @@ class LBN_Save_Post {
 		$prev_deploy_stage = (bool) get_post_meta( $post_id, 'lbn_deploy_stage', true );
 		$prev_deploy_production = (bool) get_post_meta( $post_id, 'lbn_deploy_production', true );
 
+		// Is this post published.
+		$published_stage = isset( $_POST['lbn_published_stage'] ) ? true : false;
+		$published_production = isset( $_POST['lbn_published_production'] ) ? true : false;
+
+		// Prev publish states.
+		$prev_published_stage = (bool) get_post_meta( $post_id, 'lbn_published_stage', true );
+		$prev_published_production = (bool) get_post_meta( $post_id, 'lbn_published_production', true );
+
 		// Update deploy status.
+		update_post_meta( $post->ID, 'lbn_published_stage', $published_stage );
+		update_post_meta( $post->ID, 'lbn_published_production', $published_production );
+
+		// Update publish status.
 		update_post_meta( $post_id, 'lbn_deploy_stage', $deploy_stage );
 		update_post_meta( $post_id, 'lbn_deploy_production', $deploy_production );
 
 		// Maybe deploy to stage?
-		if ( $deploy_stage || $deploy_stage !== $prev_deploy_stage ) {
+		if ( $deploy_stage || $published_stage !== $prev_published_stage ) {
 			$netlifly_stage = new LBN_Netlifly( 'stage' );
 			$netlifly_stage->call_build_hook();
 		}
 
 		// Maybe deploy to production?
-		if ( $deploy_production || $deploy_production !== $prev_deploy_production ) {
+		if ( $deploy_production || $published_production !== $prev_published_production ) {
 			$netlifly_stage = new LBN_Netlifly( 'production' );
 			$netlifly_stage->call_build_hook();
 		}
