@@ -12,13 +12,13 @@
 
 	<div id="lb-publishing-action">
 
-		<?php if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 === $post->ID ) : ?>
+		<?php if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private', 'lbn-update' ) ) || 0 === $post->ID ) : ?>
 
 			<?php if ( $can_publish ) : ?>
 
-				<h4 style="margin-bottom: 0;">Publish Status</h4>
-				<div><label><input class="js-lbn-status-stage" type="checkbox" name="lbn_published_stage" <?php if ( $published_stage ): ?>checked<?php endif; ?>>Stage</label></div>
-				<div><label><input class="js-lbn-status-production" type="checkbox" name="lbn_published_production" <?php if ( $published_production ): ?>checked<?php endif; ?>>Production</label></div>
+				<h4 style="margin-bottom: 0;">Publish to:</h4>
+				<div><label><input data-env="stage" type="checkbox" name="lbn_published_stage" <?php if ( $published_stage ): ?>checked<?php endif; ?>>Stage</label></div>
+				<div><label><input data-env="production" type="checkbox" name="lbn_published_production" <?php if ( $published_production ): ?>checked<?php endif; ?>>Production</label></div>
 
 				<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ) ?>" />
 				<?php submit_button( __( 'Publish' ), 'primary large', 'publish', false ); ?>
@@ -34,13 +34,9 @@
 
 			<?php if ( $can_publish ) : ?>
 
-				<h4 style="margin-bottom: 0;">Publish Status</h4>
-				<div><label><input class="js-lbn-status-stage" type="checkbox" name="lbn_published_stage" <?php if ( $published_stage ): ?>checked<?php endif; ?>>Stage</label></div>
-				<div><label><input class="js-lbn-status-production" type="checkbox" name="lbn_published_production" <?php if ( $published_production ): ?>checked<?php endif; ?>>Production</label></div>
-
-				<h4 style="margin-bottom: 0;">Update</h4>
-				<div><label><input class="js-lbn-deploy-stage" type="checkbox" name="lbn_deploy_stage" >Stage</label></div>
-				<div><label><input class="js-lbn-deploy-production" type="checkbox" name="lbn_deploy_production" >Production</label></div>
+				<h4 style="margin-bottom: 0;">Publish to:</h4>
+				<div><label><input class="js-publish-status" data-env="stage" type="checkbox" name="lbn_published_stage" <?php if ( $published_stage ): ?>checked<?php endif; ?>>Stage</label></div>
+				<div><label><input class="js-publish-status" data-env="production" type="checkbox" name="lbn_published_production" <?php if ( $published_production ): ?>checked<?php endif; ?>>Production</label></div>
 
 			<?php endif; ?>
 			<div id="major-publishing-actions">

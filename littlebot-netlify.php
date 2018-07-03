@@ -53,6 +53,7 @@ function littlebot_netlify_autoload_classes( $class_name ) {
 }
 spl_autoload_register( 'littlebot_netlify_autoload_classes' );
 
+
 /**
  * Main initiation class.
  *
@@ -145,7 +146,6 @@ final class Littlebot_Netlify {
 		new LBN_Meta_Fields( $this );
 		new LBN_Metaboxes( $this );
 		new LBN_Save_Post( $this );
-
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
