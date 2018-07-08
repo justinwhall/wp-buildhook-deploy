@@ -17,12 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class LBN_Settings {
 	/**
-	 * Holds the values to be used in the fields callbacks
+	 * Plugin options.
+	 *
+	 * @var array
 	 */
 	private $options;
 
 	/**
-	 * Start up
+	 * Kick it off.
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
@@ -30,10 +32,11 @@ class LBN_Settings {
 	}
 
 	/**
-	 * Add options page
+	 * Create the options page
+	 *
+	 * @return void
 	 */
 	public function add_plugin_page() {
-		// This page will be under "Settings".
 		add_options_page(
 			'Settings Admin',
 			'LittleBot Netlifly',
@@ -44,7 +47,9 @@ class LBN_Settings {
 	}
 
 	/**
-	 * Options page callback
+	 * Renders the plugin options page.
+	 *
+	 * @return void
 	 */
 	public function create_admin_page() {
 		// Set class property.
@@ -55,7 +60,7 @@ class LBN_Settings {
 			<h1>LittleBot Netlifly Settings</h1>
 			<form method="post" action="options.php">
 			<?php
-				// This prints out all hidden setting fields
+				// This prints out all hidden setting fields.
 				settings_fields( 'build_group' );
 				do_settings_sections( 'lb-netlifly' );
 				submit_button();
@@ -66,28 +71,30 @@ class LBN_Settings {
 	}
 
 	/**
-	 * Register and add settings
+	 * Registers plugins options.
+	 *
+	 * @return void
 	 */
 	public function page_init() {
 		register_setting(
-			'build_group', // Option group
-			'lb_netlifly', // Option name
-			array( $this, 'sanitize' ) // Sanitize
+			'build_group',
+			'lb_netlifly',
+			array( $this, 'sanitize' )
 		);
 
 		add_settings_section(
-			'setting_section_id', // ID
-			'Build Hooks', // Title
-			false, // Callback
-			'lb-netlifly' // Page
+			'setting_section_id',
+			'Build Hooks',
+			false,
+			'lb-netlifly'
 		);
 
 		add_settings_field(
-			'production_buildhook', // ID
-			'Production', // Title
-			array( $this, 'prod_callback' ), // Callback
-			'lb-netlifly', // Page
-			'setting_section_id' // Section
+			'production_buildhook',
+			'Production',
+			array( $this, 'prod_callback' ),
+			'lb-netlifly',
+			'setting_section_id'
 		);
 
 		add_settings_field(
@@ -102,36 +109,42 @@ class LBN_Settings {
 	/**
 	 * Sanitize each setting field as needed
 	 *
-	 * @param array $input Contains all settings fields as array keys
+	 * @param array $input Contains all settings fields as array keys.
 	 */
 	public function sanitize( $input ) {
 		$new_input = array();
-		if( isset( $input['production_buildhook'] ) )
+		if ( isset( $input['production_buildhook'] ) ) {
 			$new_input['production_buildhook'] = sanitize_text_field( $input['production_buildhook'] );
+		}
 
-		if( isset( $input['stage_buildhook'] ) )
+		if ( isset( $input['stage_buildhook'] ) ) {
 			$new_input['stage_buildhook'] = sanitize_text_field( $input['stage_buildhook'] );
+		}
 
 		return $new_input;
 	}
 
 	/**
-	 * Get the settings option array and print one of its values
+	 * Renders productions input option.
+	 *
+	 * @return void
 	 */
 	public function prod_callback() {
 		printf(
 			'<input type="text" id="prod_buildhook" name="lb_netlifly[production_buildhook]" value="%s" style="min-width:450px;"/>',
-			isset( $this->options['production_buildhook'] ) ? esc_attr( $this->options['production_buildhook']) : ''
+			isset( $this->options['production_buildhook'] ) ? esc_attr( $this->options['production_buildhook'] ) : ''
 		);
 	}
 
 	/**
-	 * Get the settings option array and print one of its values
+	 * Renders stage input option.
+	 *
+	 * @return void
 	 */
 	public function stage_callback() {
 		printf(
 			'<input type="text" id="stage_buildhook" name="lb_netlifly[stage_buildhook]" value="%s" style="min-width:450px;" />',
-			isset( $this->options['stage_buildhook'] ) ? esc_attr( $this->options['stage_buildhook']) : ''
+			isset( $this->options['stage_buildhook'] ) ? esc_attr( $this->options['stage_buildhook'] ) : ''
 		);
 	}
 }

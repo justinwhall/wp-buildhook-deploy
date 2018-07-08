@@ -145,7 +145,7 @@ final class Littlebot_Netlify {
 		new LBN_Settings( $this );
 		new LBN_Meta_Fields( $this );
 		new LBN_Metaboxes( $this );
-		new LBN_Save_Post( $this );
+		new LBN_Post( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -171,6 +171,13 @@ final class Littlebot_Netlify {
 		if ( ! $this->check_requirements() ) {
 			return;
 		}
+
+		$options = array(
+			'production_buildhook' => '',
+			'stage_buildhook' => '',
+		);
+
+		update_option( 'lb_netlifly', $options );
 
 		// Make sure any rewrite functionality has been loaded.
 		flush_rewrite_rules();

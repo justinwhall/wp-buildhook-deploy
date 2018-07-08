@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Hooks saving and updating posts.
  */
-class LBN_Save_Post {
+class LBN_Post {
 
 	/**
 	 * Parent plugin class.
@@ -44,8 +44,58 @@ class LBN_Save_Post {
 	public function hooks() {
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
 		add_action( 'wp_insert_post_data', array( $this, 'insert_post' ), 10, 3 );
+		add_action( 'manage_posts_columns', array( $this, 'show_publish_status' ), 10, 3 );
+		add_action( 'manage_posts_custom_column', array( $this, 'build_column' ), 15, 3 );
 	}
 
+	/**
+	 * Add publish column
+	 *
+	 * @param array $columns Post list columns.
+	 *
+	 * @return array
+	 */
+	public function show_publish_status( $columns ) {
+		return array_merge( $columns,
+			array(
+				'Published' => __( 'Published', 'lb-netlifly' ),
+			)
+		);
+	}
+
+	/**
+	 * Add columns to invoice and estimates
+	 *
+	 * @param  array $columns post screen columns.
+	 * @param  int   $post_id   the post id.
+	 * @return void
+	 */
+	public function build_column( $columns, $post_id ) {
+
+		$prod_status = (bool) get_post_meta( $post_id, 'lbn_published_stage', true );
+		$stage_status = (bool) get_post_meta( $post_id, 'lbn_published_production', true );
+
+		if ( $prod_status ) {
+			echo sprintf( '<div>%s</div>', esc_html( 'Production', 'lb-netlifly' ) );
+		}
+
+		if ( $stage_status ) {
+			echo sprintf( '<div>%s</div>', esc_html( 'Stage', 'lb-netlifly' ) );
+		}
+
+		if ( ! $stage_status && ! $prod_status ) {
+			echo '—';
+		}
+	}
+
+	/**
+	 * Updates "deploy" status on post update
+	 *
+	 * @param object $data the $_POST request.
+	 * @param object $post the post being updated.
+	 *
+	 * @return object
+	 */
 	public function insert_post( $data, $post ) {
 		if (
 			isset( $post['post_status'] ) && 'auto-draft' === $post['post_status'] ||

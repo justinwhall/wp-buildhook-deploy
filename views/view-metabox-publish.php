@@ -1,27 +1,36 @@
-<div id="submitpost" class="post-box submitbox">
-	<div id="lb-delete-action">
-		<?php
-		$post_type = $post->post_type;
-		$post_type_object = get_post_type_object( $post_type );
-		$can_publish = current_user_can( $post_type_object->cap->publish_posts );
-		// Prev deploy states.
-		$published_stage = (bool) get_post_meta( $post->ID, 'lbn_published_stage', true );
-		$published_production = (bool) get_post_meta( $post->ID, 'lbn_published_production', true );
-		?>
-	</div>
+<?php
+/**
+ * Renders publish metabox
+ *
+ * @package littlebot_netlifly/views
+ */
 
+// Do we have build hooks?
+$lb_netlifly = get_option( 'lb_netlifly' );
+$has_prod_hook = (bool) $lb_netlifly['production_buildhook'];
+$has_stage_hook = (bool) $lb_netlifly['stage_buildhook'];
+
+$post_type = $post->post_type;
+$post_type_object = get_post_type_object( $post_type );
+$can_publish = current_user_can( $post_type_object->cap->publish_posts );
+// Prev deploy states.
+$published_stage = (bool) get_post_meta( $post->ID, 'lbn_published_stage', true );
+$published_production = (bool) get_post_meta( $post->ID, 'lbn_published_production', true );
+?>
+
+<div id="submitpost" class="post-box submitbox">
 	<div id="lb-publishing-action">
 
 		<?php if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private', 'lbn-update' ) ) || 0 === $post->ID ) : ?>
 
 			<?php if ( $can_publish ) : ?>
 
-				<h4 style="margin-bottom: 0;">Publish to:</h4>
-				<div><label><input data-env="stage" type="checkbox" name="lbn_published_stage" <?php if ( $published_stage ): ?>checked<?php endif; ?>>Stage</label></div>
-				<div><label><input data-env="production" type="checkbox" name="lbn_published_production" <?php if ( $published_production ): ?>checked<?php endif; ?>>Production</label></div>
+				<?php include( plugin_dir_path( __FILE__ ) . 'view-metabox-major-publishing.php' ); ?>
 
-				<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ) ?>" />
-				<?php submit_button( __( 'Publish' ), 'primary large', 'publish', false ); ?>
+				<div id="major-publishing-actions">
+					<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ) ?>" />
+					<?php submit_button( __( 'Publish' ), 'primary large', 'publish', false ); ?>
+				</div>
 
 			<?php else : ?>
 
@@ -34,11 +43,10 @@
 
 			<?php if ( $can_publish ) : ?>
 
-				<h4 style="margin-bottom: 0;">Publish to:</h4>
-				<div><label><input class="js-publish-status" data-env="stage" type="checkbox" name="lbn_published_stage" <?php if ( $published_stage ): ?>checked<?php endif; ?>>Stage</label></div>
-				<div><label><input class="js-publish-status" data-env="production" type="checkbox" name="lbn_published_production" <?php if ( $published_production ): ?>checked<?php endif; ?>>Production</label></div>
+				<?php include( plugin_dir_path( __FILE__ ) . 'view-metabox-major-publishing.php' ); ?>
 
 			<?php endif; ?>
+
 			<div id="major-publishing-actions">
 				<?php
 				if ( current_user_can( 'delete_post', $post->ID ) ) {
@@ -60,11 +68,8 @@
 				</div>
 			</div>
 
-
 		<?php endif; ?>
 	</div>
-
-
 	<div class="clear"></div>
 </div>
 

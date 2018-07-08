@@ -44,6 +44,11 @@ class LBN_Assets {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_styles' ) );
 	}
 
+	/**
+	 * Enqueue assets
+	 *
+	 * @return void
+	 */
 	public function enqueue_scripts_styles() {
 		wp_enqueue_style( 'lbn-styles', $this->plugin->url . '/assets/littlebot-netlifly.css', array(), $this->plugin->__get( 'version' ), false );
 		wp_enqueue_script( 'lbn-scripts', $this->plugin->url . '/assets/littlebot-netlifly.js', array(), $this->plugin->__get( 'version' ), true );

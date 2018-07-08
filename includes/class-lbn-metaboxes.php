@@ -2,7 +2,7 @@
 /**
  * LittleBot Netlifly
  *
- * A class for all plugin metaboxs.
+ * A class for all plugin metaboxes.
  *
  * @version   0.9
  * @category  Class
@@ -29,6 +29,8 @@ class LBN_Metaboxes {
 
 	/**
 	 * Kick it off.
+	 *
+	 * @param object $plugin the parent class.
 	 */
 	function __construct( $plugin ) {
 		$this->plugin = $plugin;
@@ -55,6 +57,11 @@ class LBN_Metaboxes {
 		remove_meta_box( 'submitdiv', array( 'post', 'page' ), 'side' );
 	}
 
+	/**
+	 * Add a custom publishing metabox.
+	 *
+	 * @return void
+	 */
 	public function add_publish_box() {
 		add_meta_box(
 			'lb_netlifly',

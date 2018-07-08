@@ -6,7 +6,16 @@
  *
  * @version   0.9
  * @category  Class
+ * @package   LittleBotNetlifly/Netlifly
  * @author    Justin W Hall
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Intetfaces with Netlifly API
  */
 class LBN_Netlifly {
 
@@ -55,6 +64,5 @@ class LBN_Netlifly {
 		$response = Requests::post( $this->build_hook_url );
 
 		// TODO: further processing ....
-		// if ($server_output == "OK") { ... } else { ... }
 	}
 }
