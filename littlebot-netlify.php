@@ -172,6 +172,11 @@ final class Littlebot_Netlify {
 			return;
 		}
 
+		// If we already have options, don't create defaults.
+		if ( get_option( 'lb_netlifly' ) ) {
+			return;
+		}
+
 		$options = array(
 			'production_buildhook' => '',
 			'stage_buildhook' => '',
