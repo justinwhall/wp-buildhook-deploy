@@ -43,6 +43,7 @@ class LBN_Post {
 	 */
 	public function hooks() {
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
+		add_action( 'delete_post', array( $this, 'save_post' ), 10, 3 );
 		add_action( 'wp_insert_post_data', array( $this, 'insert_post' ), 10, 3 );
 		add_action( 'manage_posts_columns', array( $this, 'show_publish_status' ), 10, 3 );
 		add_action( 'manage_posts_custom_column', array( $this, 'build_column' ), 15, 3 );
