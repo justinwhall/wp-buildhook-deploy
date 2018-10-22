@@ -39,7 +39,7 @@ class LBN_Meta_Fields {
 	}
 
 	/**
-	 * Register custom meta fields and show in REST.
+	 * Register customer meta fields and show in REST.
 	 *
 	 * @return void
 	 */
