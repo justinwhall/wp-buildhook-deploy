@@ -43,6 +43,7 @@ class LBN_Post {
 	 */
 	public function hooks() {
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
+		add_action( 'transition_post_status', array( $this, 'maybe_trigger_build' ), 10, 3 );
 		add_action( 'delete_post', array( $this, 'save_post' ), 10, 3 );
 		add_action( 'wp_insert_post_data', array( $this, 'insert_post' ), 10, 3 );
 		add_action( 'manage_posts_columns', array( $this, 'show_publish_status' ), 10, 3 );
@@ -114,6 +115,23 @@ class LBN_Post {
 		return $data;
 	}
 
+	/**
+	 * Maybe trigger a build on post status change.
+	 *
+	 * @param string $new_status
+	 * @param string $old_status
+	 *
+	 * @return void
+	 */
+	public function maybe_trigger_build( $new_status, $old_status ) {
+		// If status changes and it's now a draft, tigger build to "unpublish".
+		if ( $new_status !== $old_status && 'draft' === $new_status ) {
+			$netlifly_stage = new LBN_Netlifly( 'stage' );
+			$netlifly_stage->call_build_hook();
+			$netlifly_stage = new LBN_Netlifly( 'production' );
+			$netlifly_stage->call_build_hook();
+		}
+	}
 	/**
 	 * Save post callback
 	 *
