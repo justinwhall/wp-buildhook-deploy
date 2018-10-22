@@ -140,18 +140,13 @@ class LBN_Post {
 		update_post_meta( $post->ID, 'lbn_published_stage', $published_stage );
 		update_post_meta( $post->ID, 'lbn_published_production', $published_production );
 
-		// Maybe deploy to stage?
-		if ( $published_stage ) {
-			$netlifly_stage = new LBN_Netlifly( 'stage' );
-			$netlifly_stage->call_build_hook();
-		}
+		// deploy to stage?
+		$netlifly_stage = new LBN_Netlifly( 'stage' );
+		$netlifly_stage->call_build_hook();
 
-		// Maybe deploy to production?
-		if ( $published_production ) {
-			$netlifly_stage = new LBN_Netlifly( 'production' );
-			$netlifly_stage->call_build_hook();
-		}
-
+		// deploy to production?
+		$netlifly_stage = new LBN_Netlifly( 'production' );
+		$netlifly_stage->call_build_hook();
 	}
 
 }
