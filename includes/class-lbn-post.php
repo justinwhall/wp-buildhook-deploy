@@ -43,7 +43,7 @@ class LBN_Post {
 	 */
 	public function hooks() {
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
-		add_action( 'delete_post', array( $this, 'save_post' ), 10, 3 );
+		add_action( 'trash_post', array( $this, 'trash_post' ), 10, 1 );
 		add_action( 'wp_insert_post_data', array( $this, 'insert_post' ), 10, 3 );
 		add_action( 'manage_posts_columns', array( $this, 'show_publish_status' ), 10, 3 );
 		add_action( 'manage_posts_custom_column', array( $this, 'build_column' ), 15, 3 );
@@ -57,7 +57,8 @@ class LBN_Post {
 	 * @return array
 	 */
 	public function show_publish_status( $columns ) {
-		return array_merge( $columns,
+		return array_merge(
+			$columns,
 			array(
 				'Published' => __( 'Published', 'lb-netlifly' ),
 			)
@@ -73,7 +74,7 @@ class LBN_Post {
 	 */
 	public function build_column( $columns, $post_id ) {
 
-		$prod_status = (bool) get_post_meta( $post_id, 'lbn_published_stage', true );
+		$prod_status  = (bool) get_post_meta( $post_id, 'lbn_published_stage', true );
 		$stage_status = (bool) get_post_meta( $post_id, 'lbn_published_production', true );
 
 		if ( $prod_status ) {
@@ -123,7 +124,27 @@ class LBN_Post {
 	 * @return void
 	 */
 	public function save_post( $post_id, $post, $update ) {
-		// Bail if it's a auto-draft, we're doing auto save or ajax.
+		LBN_POST::update( $post );
+	}
+
+	/**
+	 * Trash post callback
+	 *
+	 * @param int $post_id The post id.
+	 * @return void
+	 */
+	public function trash_post( $post_id ) {
+		$post = get_post( $post_id );
+		LBN_POST::update( $post );
+	}
+
+	/**
+	 * Update post meta and call build hooks(s)
+	 *
+	 * @param object $post The post being updated.
+	 * @return void
+	 */
+	public function update( $post ) {
 		if (
 			isset( $post->post_status ) && 'auto-draft' === $post->post_status ||
 			defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ||
@@ -133,7 +154,7 @@ class LBN_Post {
 		}
 
 		// Is this post published.
-		$published_stage = isset( $_POST['lbn_published_stage'] ) ? true : false;
+		$published_stage      = isset( $_POST['lbn_published_stage'] ) ? true : false;
 		$published_production = isset( $_POST['lbn_published_production'] ) ? true : false;
 
 		// Update published status.

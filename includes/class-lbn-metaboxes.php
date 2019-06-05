@@ -65,7 +65,7 @@ class LBN_Metaboxes {
 	public function add_publish_box() {
 		add_meta_box(
 			'lb_netlifly',
-			__( 'Publish', 'littlebot-netlify' ),
+			__( 'Netlify', 'littlebot-netlify' ),
 			array( $this, 'render_meta_box_content' ),
 			array( 'post', 'page' ),
 			'side',
