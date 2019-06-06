@@ -6,8 +6,8 @@
  */
 
 // Do we have build hooks?
-$lb_netlifly = get_option( 'lb_netlifly' );
-$has_prod_hook = (bool) $lb_netlifly['production_buildhook'];
+$lb_netlifly     = get_option( 'lb_netlifly' );
+$has_prod_hook  = (bool) $lb_netlifly['production_buildhook'];
 $has_stage_hook = (bool) $lb_netlifly['stage_buildhook'];
 
 $current_post_type = $post->post_type;
@@ -68,10 +68,12 @@ $is_classic_editor    = is_plugin_active( 'classic-editor/classic-editor.php' );
 						<?php
 					}
 					?>
+
 					<div id="publishing-action">
 						<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); ?>" />
 						<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update' ); ?>" />
 					</div>
+
 				</div>
 			<?php endif; ?>
 

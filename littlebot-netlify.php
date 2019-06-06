@@ -4,7 +4,7 @@
  * Plugin URI:  https://www.justinwhall.com
  * Description: Connect your WordPress website to Netlify.com
  * Version:     0.9.1
- * Author:      jwind
+ * Author:      Justin W Hall
  * Author URI:  https://www.justinwhall.com
  * Donate link: https://www.justinwhall.com
  * License:     GPLv2
@@ -16,7 +16,7 @@
  * @package Littlebot_netlify
  * @version 0.9.0
  *
- * Copyright (c) 2018 jwind (email : justinwhall@me.com)
+ * Copyright (c) 2018 Justin W Hall (email : justinwhall@me.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at

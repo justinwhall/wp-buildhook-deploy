@@ -153,21 +153,27 @@ class LBN_Post {
 			return;
 		}
 
+		$lb_netlifly     = get_option( 'lb_netlifly' );
+		$has_stage_hook = (bool) $lb_netlifly['stage_buildhook'];
+		$has_prod_hook  = (bool) $lb_netlifly['production_buildhook'];
+
 		// Is this post published.
 		$published_stage      = isset( $_POST['lbn_published_stage'] ) ? true : false;
 		$published_production = isset( $_POST['lbn_published_production'] ) ? true : false;
 
-		// Update published status.
-		update_post_meta( $post->ID, 'lbn_published_stage', $published_stage );
-		update_post_meta( $post->ID, 'lbn_published_production', $published_production );
+		// Stage.
+		if ( $has_stage_hook ) {
+			update_post_meta( $post->ID, 'lbn_published_stage', $published_stage );
+			$netlifly_stage = new LBN_Netlifly( 'stage' );
+			$netlifly_stage->call_build_hook();
+		}
 
-		// deploy to stage?
-		$netlifly_stage = new LBN_Netlifly( 'stage' );
-		$netlifly_stage->call_build_hook();
-
-		// deploy to production?
-		$netlifly_stage = new LBN_Netlifly( 'production' );
-		$netlifly_stage->call_build_hook();
+		// Prod.
+		if ( $has_prod_hook ) {
+			update_post_meta( $post->ID, 'lbn_published_production', $published_production );
+			$netlifly_stage = new LBN_Netlifly( 'production' );
+			$netlifly_stage->call_build_hook();
+		}
 	}
 
 }
