@@ -3,7 +3,7 @@
  * Plugin Name: littlebot-netlify
  * Plugin URI:  https://www.justinwhall.com
  * Description: Connect your WordPress website to Netlify.com
- * Version:     0.9.0
+ * Version:     0.9.1
  * Author:      jwind
  * Author URI:  https://www.justinwhall.com
  * Donate link: https://www.justinwhall.com
@@ -44,10 +44,13 @@ function littlebot_netlify_autoload_classes( $class_name ) {
 	if ( 0 !== strpos( $class_name, 'LBN_' ) ) {
 		return;
 	}
-	$filename = strtolower( str_replace(
-		'_', '-',
-		substr( $class_name, strlen( 'LBN_' ) )
-	) );
+	$filename = strtolower(
+		str_replace(
+			'_',
+			'-',
+			substr( $class_name, strlen( 'LBN_' ) )
+		)
+	);
 	$filename = 'class-lbn-' . $filename;
 	Littlebot_Netlify::include_file( 'includes/' . $filename );
 }
@@ -179,7 +182,7 @@ final class Littlebot_Netlify {
 
 		$options = array(
 			'production_buildhook' => '',
-			'stage_buildhook' => '',
+			'stage_buildhook'      => '',
 		);
 
 		update_option( 'lb_netlifly', $options );
@@ -331,7 +334,7 @@ final class Littlebot_Netlify {
 	public static function include_file( $filename ) {
 		$file = self::dir( $filename . '.php' );
 		if ( file_exists( $file ) ) {
-			return include_once( $file );
+			return include_once $file;
 		}
 		return false;
 	}
