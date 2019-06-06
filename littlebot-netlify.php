@@ -3,8 +3,8 @@
  * Plugin Name: littlebot-netlify
  * Plugin URI:  https://www.justinwhall.com
  * Description: Connect your WordPress website to Netlify.com
- * Version:     0.9.0
- * Author:      jwind
+ * Version:     0.9.1
+ * Author:      Justin W Hall
  * Author URI:  https://www.justinwhall.com
  * Donate link: https://www.justinwhall.com
  * License:     GPLv2
@@ -16,7 +16,7 @@
  * @package Littlebot_netlify
  * @version 0.9.0
  *
- * Copyright (c) 2018 jwind (email : justinwhall@me.com)
+ * Copyright (c) 2018 Justin W Hall (email : justinwhall@me.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
@@ -44,10 +44,13 @@ function littlebot_netlify_autoload_classes( $class_name ) {
 	if ( 0 !== strpos( $class_name, 'LBN_' ) ) {
 		return;
 	}
-	$filename = strtolower( str_replace(
-		'_', '-',
-		substr( $class_name, strlen( 'LBN_' ) )
-	) );
+	$filename = strtolower(
+		str_replace(
+			'_',
+			'-',
+			substr( $class_name, strlen( 'LBN_' ) )
+		)
+	);
 	$filename = 'class-lbn-' . $filename;
 	Littlebot_Netlify::include_file( 'includes/' . $filename );
 }
@@ -179,7 +182,7 @@ final class Littlebot_Netlify {
 
 		$options = array(
 			'production_buildhook' => '',
-			'stage_buildhook' => '',
+			'stage_buildhook'      => '',
 		);
 
 		update_option( 'lb_netlifly', $options );
@@ -331,7 +334,7 @@ final class Littlebot_Netlify {
 	public static function include_file( $filename ) {
 		$file = self::dir( $filename . '.php' );
 		if ( file_exists( $file ) ) {
-			return include_once( $file );
+			return include_once $file;
 		}
 		return false;
 	}
