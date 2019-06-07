@@ -18,7 +18,7 @@ Connect your WordPress website to [Netlify](https://www.netlify.com/) by trigger
 
 ## Q & A
 
-`Q` **Do you need two site at Netlify?**
+`Q` **Do you need two sites at Netlify?**
 
 `A` No. This plugin will call your build hook and build your Gatsby (or whatever) site no matter what. The starter mentioned above facilitates a _two_ environment Gatsby set up but other than that, this plugin is totally _front end agnostic_ and you could just as easy trigger one build hook by only adding one build hook URL.
 
