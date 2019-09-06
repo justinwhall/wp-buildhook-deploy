@@ -1,6 +1,6 @@
 # LittleBot Netlify
 
-Connect your WordPress website to [Netlify](https://www.netlify.com/) by triggering stage and or production build hooks on post save and or update.
+Connect your WordPress website to [Netlify](https://www.netlify.com/) by triggering stage and or production build hooks on post save and or update. This plugin is not tied to Netlify, you can connect other CI systems with webhooks enabled like CircleCI, Travis, AWS Amplify, etc.
 
 ## Installation
 
@@ -25,3 +25,7 @@ Connect your WordPress website to [Netlify](https://www.netlify.com/) by trigger
 `Q` **Does this plugin support Gutenberg?**
 
 `A` This plugin supports both GutenLOVERS and GutenHATERS. How? It supports Gutenberg as that is what the WordPress editing experience is now. Don't like Gutenberg? This plugin also supports the Classic Editor.
+
+`Q` **Can I use this plugin with other similar system to Netlify like for example AWS Amplify?**
+
+`A` YES. You can use a CI like Amplify, Circle, Travis etc. Depending on what you are trying to do, the plugin may still work as it just calls a webhook URL with some logic around various publishing hooks.
