@@ -74,8 +74,8 @@ class LBN_Post {
 	 */
 	public function build_column( $columns, $post_id ) {
 
-		$prod_status  = (bool) get_post_meta( $post_id, 'lbn_published_stage', true );
-		$stage_status = (bool) get_post_meta( $post_id, 'lbn_published_production', true );
+		$stage_status  = (bool) get_post_meta( $post_id, 'lbn_published_stage', true );
+		$prod_status = (bool) get_post_meta( $post_id, 'lbn_published_production', true );
 
 		if ( $prod_status ) {
 			echo sprintf( '<div>%s</div>', esc_html( 'Production', 'lb-netlifly' ) );
