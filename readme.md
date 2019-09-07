@@ -1,22 +1,27 @@
-# LittleBot Netlify
+# WP Buildhook Deploy (The articst formely know as "LittleBot Netlify")
 
 Connect your WordPress website to [Netlify](https://www.netlify.com/) (or any service that provides a buildhook) by triggering stage and or production build hooks on post save and or update. This plugin is not tied to Netlify, you can connect other CI systems with webhooks enabled like CircleCI, Travis, AWS Amplify, etc.
 
 ## Installation
 
-* Download or clone repository
-* Move `littlebot-netlify` to your plugins directory or zip and upload
-* Activate plugin
-* Create at least one site at Netlify
-* [Create a build hook](https://www.netlify.com/docs/webhooks/) for each site (or just one if you're just using one site)
-* Add build hook to the Settings > LittleBot Netlify
-* Your WordPress site will call your build hook(s) when publishing, updating or deleting a post
+- Download or clone repository
+- Move `wp-buildhook-deploy` to your plugins directory or zip and upload
+- Activate plugin
+- Add at least one buildhook URL to the setings page `Settings > WP BuildHook Deploy`
+
+### Using Netlify? (It's awesome BTW)
+
+- Create at least one site at Netlify
+- [Create a build hook](https://www.netlify.com/docs/webhooks/) for each site (or just one if you're just using one site)
+- Add build hook to the `Settings > WP BuildHook Deploy`
+- Your WordPress site will call your build hook(s) when publishing, updating or deleting a post
 
 ## Gatsby + WordPress + Netlify Starter
 
 [Gatsby + WordPress + Netlify Starter](https://github.com/justinwhall/gatsby-wordpress-netlify-starter) is a plug and play starter to get up and running with continuous deployment from your WordPress site to Netlify with Gatsby.
 
 ## Gatsty + WordPress + Live Previews
+
 Checkout [this Gatsby theme](https://github.com/justinwhall/wordpress-gatsby-preview-starter). This could also be used with this plugin to publish to Netlify, AWS Amplify etc when publishing/updating/deleting/etc WordPress Posts/pages.
 
 ## Q & A

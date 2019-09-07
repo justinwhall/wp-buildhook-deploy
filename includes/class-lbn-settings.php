@@ -39,7 +39,7 @@ class LBN_Settings {
 	public function add_plugin_page() {
 		add_options_page(
 			'Settings Admin',
-			'LittleBot Netlifly',
+			'WP Buildhook Deploy',
 			'manage_options',
 			'lb-netlifly',
 			array( $this, 'create_admin_page' )
@@ -57,7 +57,7 @@ class LBN_Settings {
 
 		?>
 		<div class="wrap">
-			<h1>LittleBot Netlifly Settings</h1>
+			<h1>WP Buildhook Deploy Settings</h1>
 			<form method="post" action="options.php">
 			<?php
 				// This prints out all hidden setting fields.

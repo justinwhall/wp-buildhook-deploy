@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: littlebot-netlify
+ * Plugin Name: WP Buildhook Deploy
  * Plugin URI:  https://www.justinwhall.com
- * Description: Connect your WordPress website to Netlify.com
- * Version:     0.9.1
+ * Description: Trigger buildhooks & deploy your static site on post publish, update, delete etc.
+ * Version:     0.9.2
  * Author:      Justin W Hall
  * Author URI:  https://www.justinwhall.com
  * Donate link: https://www.justinwhall.com
@@ -14,7 +14,7 @@
  * @link    https://www.justinwhall.com
  *
  * @package Littlebot_netlify
- * @version 0.9.0
+ * @version 0.9.2
  *
  * Copyright (c) 2018 Justin W Hall (email : justinwhall@me.com)
  *
