@@ -16,6 +16,9 @@ Connect your WordPress website to [Netlify](https://www.netlify.com/) (or any se
 
 [Gatsby + WordPress + Netlify Starter](https://github.com/justinwhall/gatsby-wordpress-netlify-starter) is a plug and play starter to get up and running with continuous deployment from your WordPress site to Netlify with Gatsby.
 
+## Gatsty + WordPress + Live Previews
+Checkout [this repo](https://github.com/justinwhall/wordpress-gatsby-preview-starter). This could also be used with this plugin to publish to Netlify, AWS Amplify etc when publishing/updating/deleting/etc WordPress Posts/pages.
+
 ## Q & A
 
 `Q` **Do you need two sites at Netlify?**
