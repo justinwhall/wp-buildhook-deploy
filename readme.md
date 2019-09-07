@@ -1,4 +1,4 @@
-# WP Buildhook Deploy (The artist formerly know as "LittleBot Netlify")
+# WP Buildhook Deploy ("LittleBot Netlify")
 
 Connect your WordPress website to [Netlify](https://www.netlify.com/) (or any service that provides a buildhook) by triggering stage and or production build hooks on post save and or update. This plugin is not tied to Netlify, you can connect other CI systems with webhooks enabled like CircleCI, Travis, AWS Amplify, etc.
 
